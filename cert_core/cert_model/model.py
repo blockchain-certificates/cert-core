@@ -30,6 +30,7 @@ V1_1_REGEX = re.compile('[0-9a-fA-F]{24}')
 V1_2_REGEX = re.compile('[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}')
 
 USE_PREFIX = False
+BLOCKCERTS_PREFIX = 'bc:'
 
 
 def scope_name(name):
