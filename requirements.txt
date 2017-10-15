@@ -1,0 +1,13 @@
+cert-schema==2.0.8
+configargparse>=0.12.0
+connexion>=1.1.14
+enum34>=1.1.6;python_version<"3.4"
+Flask-PyMongo>=0.5.1
+jsonschema>=2.6.0
+pyld>=0.7.2
+python-dateutil>=2.6.1
+pytz>=2017.2
+requests>=2.18.4
+simplekv>=0.10.0
+tox>=2.7.0
+validators>=0.12.0
