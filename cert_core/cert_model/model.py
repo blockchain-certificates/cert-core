@@ -171,7 +171,7 @@ def detect_version(certificate_json):
 
     if 'v1' in version_marker:
         return BlockcertVersion.V1_2
-    elif '2.0-alpha' in version_marker:
+    elif '2.0-alpha' in version_marker or 'v2_alpha' in version_marker:
         return BlockcertVersion.V2_ALPHA
     elif '2.0' in version_marker or 'v2' in version_marker:
         return BlockcertVersion.V2
