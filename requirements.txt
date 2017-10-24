@@ -1,5 +1,5 @@
 requests>=2.18.4
-cert-schema>=2.1.3
+cert-schema>=2.1.4
 configargparse>=0.12.0
 connexion>=1.1.14
 enum34>=1.1.6;python_version<"3.4"
