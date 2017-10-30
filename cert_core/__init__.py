@@ -99,13 +99,6 @@ def chain_to_bitcoin_network(chain):
         raise UnknownChainError(message)
 
 
-def to_source_id(txid, chain):
-    if chain == Chain.mainnet or Chain.testnet:
-        return txid
-    else:
-        return 'This has not been issued on a blockchain and is for testing only'
-
-
 def to_anchor_type(chain):
     """
     Return the anchor type to include in the Blockcert signature. In next version of Blockcerts schema we will be able
