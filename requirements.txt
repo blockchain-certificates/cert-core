@@ -1,5 +1,5 @@
 requests>=2.18.4
-cert-schema>=2.1.4
+cert-schema>=2.1.5
 configargparse>=0.12.0
 connexion>=1.1.14
 enum34>=1.1.6;python_version<"3.4"
@@ -8,5 +8,5 @@ jsonschema>=2.6.0
 python-dateutil>=2.6.1
 pytz>=2017.2
 simplekv>=0.10.0
-tox>=2.7.0
-validators>=0.12.0
+tox>=3.0.0
+validators>=0.12.1
