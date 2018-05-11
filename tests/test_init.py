@@ -40,10 +40,6 @@ class TestInit(unittest.TestCase):
         chain = Chain.parse_from_chain('ethereum_mainnet')
         self.assertEqual(chain, Chain.ethereum_mainnet)
 
-    def test_parse_from_chain_string_ethereum_testnet(self):
-        chain = Chain.parse_from_chain('ethereum_testnet')
-        self.assertEqual(chain, Chain.ethereum_testnet)
-
     def test_parse_from_chain_string_ethereum_ropsten(self):
         chain = Chain.parse_from_chain('ethereum_ropsten')
         self.assertEqual(chain, Chain.ethereum_ropsten)
@@ -67,10 +63,6 @@ class TestInit(unittest.TestCase):
     def test_parse_from_external_display_value_ethereum_mainnet(self):
         chain = Chain.parse_from_external_display_value('ethereumMainnet')
         self.assertEqual(chain, Chain.ethereum_mainnet)
-
-    def test_parse_from_external_display_value_ethereum_testnet(self):
-        chain = Chain.parse_from_external_display_value('ethereumTestnet')
-        self.assertEqual(chain, Chain.ethereum_testnet)
 
     def test_parse_from_external_display_value_ethereum_ropsten(self):
         chain = Chain.parse_from_external_display_value('ethereumRopsten')

@@ -1,5 +1,32 @@
 from enum import Enum
 
+
+# display value for chains, including specific network.
+CHAIN_BITCOIN_MAINNET = 'bitcoinMainnet'
+CHAIN_BITCOIN_REGTEST = 'bitcoinRegtest'
+CHAIN_BITCOIN_TESTNET = 'bitcoinTestnet'
+CHAIN_ETHEREUM_MAINNET = 'ethereumMainnet'
+CHAIN_ETHEREUM_ROPSTEN = 'ethereumRopsten'
+CHAIN_MOCKCHAIN = 'mockchain'
+
+# system value for chains, including specific network. Used in config files for example
+SYS_CHAIN_BITCOIN_MAINNET = 'bitcoin_mainnet'
+SYS_CHAIN_BITCOIN_REGTEST = 'bitcoin_regtest'
+SYS_CHAIN_BITCOIN_TESTNET = 'bitcoin_testnet'
+SYS_CHAIN_ETHEREUM_MAINNET = 'ethereum_mainnet'
+SYS_CHAIN_ETHEREUM_ROPSTEN = 'ethereum_ropsten'
+SYS_CHAIN_MOCKCHAIN = 'mockchain'
+
+# signature type, part of signature suite standard
+CHAIN_TYPE_BITCOIN = 'BTCOpReturn'
+CHAIN_TYPE_ETHEREUM = 'ETHData'
+CHAIN_TYPE_MOCK = 'Mock'
+
+# system config values, used for pycoin
+SYS_NETWORK_BITCOIN_REGTEST = 'regtest'
+SYS_NETWORK_BITCOIN_TESTNET = 'testnet'
+SYS_NETWORK_BITCOIN_MAINNET = 'mainnet'
+
 PUBKEY_PREFIX = 'ecdsa-koblitz-pubkey:'
 URN_UUID_PREFIX = 'urn:uuid:'
 
@@ -12,9 +39,9 @@ class BlockcertVersion(Enum):
 
 
 class BlockchainType(Enum):
-    bitcoin = 0, 'BTCOpReturn'
-    ethereum = 1, 'ETHData'
-    mock = 2, 'Mock'
+    bitcoin = 0, CHAIN_TYPE_BITCOIN
+    ethereum = 1, CHAIN_TYPE_ETHEREUM
+    mock = 2, CHAIN_TYPE_MOCK
 
     def __new__(cls, enum_value, external_display_value):
         obj = object.__new__(cls)
@@ -24,13 +51,12 @@ class BlockchainType(Enum):
 
 
 class Chain(Enum):
-    bitcoin_mainnet = 0, BlockchainType.bitcoin, 'bitcoinMainnet'
-    bitcoin_testnet = 1, BlockchainType.bitcoin, 'bitcoinTestnet'
-    bitcoin_regtest = 2, BlockchainType.bitcoin, 'bitcoinRegtest'
-    mockchain = 3, BlockchainType.mock, 'mockchain'
-    ethereum_mainnet = 4, BlockchainType.ethereum, 'ethereumMainnet'
-    ethereum_ropsten = 5, BlockchainType.ethereum, 'ethereumRopsten'
-    ethereum_testnet = 6, BlockchainType.ethereum, 'ethereumTestnet'
+    bitcoin_mainnet = 0, BlockchainType.bitcoin, CHAIN_BITCOIN_MAINNET
+    bitcoin_testnet = 1, BlockchainType.bitcoin, CHAIN_BITCOIN_TESTNET
+    bitcoin_regtest = 2, BlockchainType.bitcoin, CHAIN_BITCOIN_REGTEST
+    mockchain = 3, BlockchainType.mock, CHAIN_MOCKCHAIN
+    ethereum_mainnet = 4, BlockchainType.ethereum, CHAIN_ETHEREUM_MAINNET
+    ethereum_ropsten = 5, BlockchainType.ethereum, CHAIN_ETHEREUM_ROPSTEN
 
     def __new__(cls, enum_value, blockchain_type, external_display_value):
         obj = object.__new__(cls)
@@ -41,39 +67,35 @@ class Chain(Enum):
 
     @staticmethod
     def parse_from_chain(chain_string):
-        if chain_string == 'bitcoin_mainnet':
+        if chain_string == SYS_CHAIN_BITCOIN_MAINNET:
             return Chain.bitcoin_mainnet
-        elif chain_string == 'bitcoin_testnet':
+        elif chain_string == SYS_CHAIN_BITCOIN_TESTNET:
             return Chain.bitcoin_testnet
-        elif chain_string == 'bitcoin_regtest':
+        elif chain_string == SYS_CHAIN_BITCOIN_REGTEST:
             return Chain.bitcoin_regtest
-        elif chain_string == 'mockchain':
+        elif chain_string == SYS_CHAIN_MOCKCHAIN:
             return Chain.mockchain
-        elif chain_string == 'ethereum_mainnet':
+        elif chain_string == SYS_CHAIN_ETHEREUM_MAINNET:
             return Chain.ethereum_mainnet
-        elif chain_string == 'ethereum_ropsten':
+        elif chain_string == SYS_CHAIN_ETHEREUM_ROPSTEN:
             return Chain.ethereum_ropsten
-        elif chain_string == 'ethereum_testnet':
-            return Chain.ethereum_testnet
         else:
             raise UnknownChainError(chain_string)
 
     @staticmethod
     def parse_from_external_display_value(external_display_value):
-        if external_display_value == 'bitcoinMainnet':
+        if external_display_value == CHAIN_BITCOIN_MAINNET:
             return Chain.bitcoin_mainnet
-        elif external_display_value == 'bitcoinTestnet':
+        elif external_display_value == CHAIN_BITCOIN_TESTNET:
             return Chain.bitcoin_testnet
-        elif external_display_value == 'bitcoinRegtest':
+        elif external_display_value == CHAIN_BITCOIN_REGTEST:
             return Chain.bitcoin_regtest
-        elif external_display_value == 'mockchain':
+        elif external_display_value == CHAIN_MOCKCHAIN:
             return Chain.mockchain
-        elif external_display_value == 'ethereumMainnet':
+        elif external_display_value == CHAIN_ETHEREUM_MAINNET:
             return Chain.ethereum_mainnet
-        elif external_display_value == 'ethereumRopsten':
+        elif external_display_value == CHAIN_ETHEREUM_ROPSTEN:
             return Chain.ethereum_ropsten
-        elif external_display_value == 'ethereumTestnet':
-            return Chain.ethereum_testnet
         else:
             raise UnknownChainError(external_display_value)
 
@@ -85,11 +107,11 @@ def chain_to_bitcoin_network(chain):
     :return:
     """
     if chain == Chain.bitcoin_mainnet:
-        return 'mainnet'
+        return SYS_NETWORK_BITCOIN_MAINNET
     elif chain == Chain.bitcoin_testnet:
-        return 'testnet'
+        return SYS_NETWORK_BITCOIN_TESTNET
     elif chain == Chain.bitcoin_regtest:
-        return 'regtest'
+        return SYS_NETWORK_BITCOIN_REGTEST
     else:
         message = 'This chain cannot be converted to a bitcoin netcode; chain='
         if chain:
@@ -97,23 +119,6 @@ def chain_to_bitcoin_network(chain):
         else:
             message += '<NULL>'
         raise UnknownChainError(message)
-
-
-def to_anchor_type(chain):
-    """
-    Return the anchor type to include in the Blockcert signature. In next version of Blockcerts schema we will be able
-    to write XTNOpReturn for testnet
-    :param chain:
-    :return:
-    """
-    if chain == Chain.mainnet or chain == Chain.testnet:
-        return 'BTCOpReturn'
-    # non-standard
-    elif chain == Chain.regtest:
-        return 'REGOpReturn'
-    # non-standard
-    elif chain == Chain.mockchain:
-        return 'MockOpReturn'
 
 
 def is_bitcoin_mainnet_address(address):
