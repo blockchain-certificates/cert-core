@@ -13,7 +13,7 @@ with open(os.path.join(here, 'README.md')) as fp:
 
 setup(
     name='cert-core',
-    version='2.1.10',
+    version='3.0.0b1',
     description='Blockcerts core models for python',
     author='info@blockcerts.org',
     tests_require=['tox'],
