@@ -113,6 +113,15 @@ class Chain(Enum):
         else:
             raise UnknownChainError(external_display_value)
 
+    def is_bitcoin_type(self):
+        return self.blockchain_type == BlockchainType.bitcoin
+
+    def is_mock_type(self):
+        return self.blockchain_type == BlockchainType.mock
+
+    def is_ethereum_type(self):
+        return self.blockchain_type == BlockchainType.ethereum
+
 
 def chain_to_bitcoin_network(chain):
     """

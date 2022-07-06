@@ -100,6 +100,44 @@ class TestInit(unittest.TestCase):
         netcode = chain_to_bitcoin_network(Chain.bitcoin_regtest)
         self.assertEqual(netcode, 'regtest')
 
+    def test_parse_from_external_display_value_bitcoin_mainnet(self):
+        chain = Chain.parse_from_external_display_value('bitcoinMainnet')
+        self.assertEqual(chain, Chain.bitcoin_mainnet)
+
+    def test_parse_from_external_display_value_bitcoin_mainnet(self):
+        chain = Chain.parse_from_external_display_value('bitcoinMainnet')
+        self.assertEqual(chain, Chain.bitcoin_mainnet)
+
+    def test_is_bitcoin_type_works_for_all_the_members(self):
+        self.assertEqual(Chain.bitcoin_mainnet.is_bitcoin_type(), True)
+        self.assertEqual(Chain.bitcoin_testnet.is_bitcoin_type(), True)
+        self.assertEqual(Chain.bitcoin_regtest.is_bitcoin_type(), True)
+        self.assertEqual(Chain.mockchain.is_bitcoin_type(), False)
+        self.assertEqual(Chain.ethereum_mainnet.is_bitcoin_type(), False)
+        self.assertEqual(Chain.ethereum_ropsten.is_bitcoin_type(), False)
+        self.assertEqual(Chain.ethereum_goerli.is_bitcoin_type(), False)
+        self.assertEqual(Chain.ethereum_sepolia.is_bitcoin_type(), False)
+
+    def test_is_mock_type_works_for_all_the_members(self):
+        self.assertEqual(Chain.bitcoin_mainnet.is_mock_type(), False)
+        self.assertEqual(Chain.bitcoin_testnet.is_mock_type(), False)
+        self.assertEqual(Chain.bitcoin_regtest.is_mock_type(), False)
+        self.assertEqual(Chain.mockchain.is_mock_type(), True)
+        self.assertEqual(Chain.ethereum_mainnet.is_mock_type(), False)
+        self.assertEqual(Chain.ethereum_ropsten.is_mock_type(), False)
+        self.assertEqual(Chain.ethereum_goerli.is_mock_type(), False)
+        self.assertEqual(Chain.ethereum_sepolia.is_mock_type(), False)
+
+    def test_is_ethereum_type_works_for_all_the_members(self):
+        self.assertEqual(Chain.bitcoin_mainnet.is_ethereum_type(), False)
+        self.assertEqual(Chain.bitcoin_testnet.is_ethereum_type(), False)
+        self.assertEqual(Chain.bitcoin_regtest.is_ethereum_type(), False)
+        self.assertEqual(Chain.mockchain.is_ethereum_type(), False)
+        self.assertEqual(Chain.ethereum_mainnet.is_ethereum_type(), True)
+        self.assertEqual(Chain.ethereum_ropsten.is_ethereum_type(), True)
+        self.assertEqual(Chain.ethereum_goerli.is_ethereum_type(), True)
+        self.assertEqual(Chain.ethereum_sepolia.is_ethereum_type(), True)
+
     def test_bitcoin_chain_to_netcode_mocknet(self):
         """
         This should fail. Assert that we get an UnknownChainError
