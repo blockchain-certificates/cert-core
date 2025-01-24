@@ -10,3 +10,5 @@ pytz>=2017.2
 simplekv>=0.10.0
 tox>=3.0.0
 validators>=0.12.1
+setuptools>=75.8.0
+
